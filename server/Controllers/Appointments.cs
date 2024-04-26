@@ -1,20 +1,40 @@
-﻿using System.Globalization;
-using System.Text;
+﻿using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-using Org.BouncyCastle.Asn1.Cms;
 namespace server;
 public class CreateAppointmentClass
 {
     public string? Id { get; set; }
     public AppointmentModel? Appointment { get; set; }
 }
-public class Appointments(ApplicationDBContext context) : Controller
+public class UserLoginParams
+{
+    public string? Username { get; set; }
+    public string? Password { get; set; }
+
+}
+public class UserResult
+{
+    public string? Id { get; set; }
+    public string? Username { get; set; }
+    public List<AppointmentModel>? Appointments { get; set; }
+}
+// define interface for JWTAuth method
+
+public class Appointments : Controller
 
 {
-    private readonly ApplicationDBContext _context = context;
+    private readonly ApplicationDBContext _context;
+    private readonly IJWTAuth _jwtTokenMethod;
 
+    public Appointments(ApplicationDBContext context, IJWTAuth jwtTokenMethod)
+    {
+        _context = context;
+        _jwtTokenMethod = jwtTokenMethod;
+    }
     [HttpGet]
     public string Home()
     {
@@ -44,6 +64,40 @@ public class Appointments(ApplicationDBContext context) : Controller
 
     }
     [HttpPost]
+    public IActionResult Login([FromBody] UserLoginParams user)
+    {
+        try
+        {
+            if (user == null)
+            {
+                return BadRequest("Invalid request body");
+            }
+            var userExists = _context.Users.FirstOrDefault(u => u.Username == user.Username);
+            if (userExists == null)
+            {
+                return BadRequest("User not found");
+            }
+            var passwordMatch = BCrypt.Net.BCrypt.Verify(user.Password, userExists.Password);
+            if (!passwordMatch)
+            {
+                return BadRequest("Invalid password");
+            }
+            // UserResult result = new UserResult
+            // {
+            //     Id = userExists.Id,
+            //     Username = userExists.Username,
+            //     Appointments = userExists.Appointments
+            // };
+            // return Ok(result);
+            return new JsonResult(new { token = _jwtTokenMethod.JWTTokenAuth(userExists.Id, userExists.Username) });
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+    [HttpPost]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> CreateAppointment()
     {
         try
@@ -86,6 +140,7 @@ public class Appointments(ApplicationDBContext context) : Controller
         }
     }
     [HttpGet]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public IActionResult GetAllAppointments([FromQuery] string id)
     {
         try
@@ -104,4 +159,6 @@ public class Appointments(ApplicationDBContext context) : Controller
             return BadRequest(ex.Message);
         }
     }
+
+
 }

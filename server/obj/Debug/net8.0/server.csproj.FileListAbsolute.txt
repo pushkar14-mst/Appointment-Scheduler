@@ -128,3 +128,12 @@
 /Users/pushkar/Documents/Documents - Pushkar’s MacBook Pro/Appointment Scheduler/server/obj/Debug/net8.0/ref/server.dll
 /Users/pushkar/Documents/Documents - Pushkar’s MacBook Pro/Appointment Scheduler/server/bin/Debug/net8.0/BCrypt.Net-Next.dll
 /Users/pushkar/Documents/Documents - Pushkar’s MacBook Pro/Appointment Scheduler/server/bin/Debug/net8.0/Newtonsoft.Json.dll
+/Users/pushkar/Documents/Documents - Pushkar’s MacBook Pro/Appointment Scheduler/server/obj/Debug/net8.0/server.sourcelink.json
+/Users/pushkar/Documents/Documents - Pushkar’s MacBook Pro/Appointment Scheduler/server/bin/Debug/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/Users/pushkar/Documents/Documents - Pushkar’s MacBook Pro/Appointment Scheduler/server/bin/Debug/net8.0/Microsoft.IdentityModel.Abstractions.dll
+/Users/pushkar/Documents/Documents - Pushkar’s MacBook Pro/Appointment Scheduler/server/bin/Debug/net8.0/Microsoft.IdentityModel.JsonWebTokens.dll
+/Users/pushkar/Documents/Documents - Pushkar’s MacBook Pro/Appointment Scheduler/server/bin/Debug/net8.0/Microsoft.IdentityModel.Logging.dll
+/Users/pushkar/Documents/Documents - Pushkar’s MacBook Pro/Appointment Scheduler/server/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.dll
+/Users/pushkar/Documents/Documents - Pushkar’s MacBook Pro/Appointment Scheduler/server/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+/Users/pushkar/Documents/Documents - Pushkar’s MacBook Pro/Appointment Scheduler/server/bin/Debug/net8.0/Microsoft.IdentityModel.Tokens.dll
+/Users/pushkar/Documents/Documents - Pushkar’s MacBook Pro/Appointment Scheduler/server/bin/Debug/net8.0/System.IdentityModel.Tokens.Jwt.dll
